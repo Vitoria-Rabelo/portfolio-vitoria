@@ -12,6 +12,10 @@ const HeroSession = () => {
           <p className="text-[#ADB7BE] text-lg mb-6 lf:text-xl">
           Desenvolvendo sistemas escaláveis e transformando dados em soluções inteligentes.
           </p>
+          {/* Feature adicionada na branch teste_hero */}
+          <p className="text-[#ADB7BE] text-sm mb-4">
+          Apaixonada por tecnologia e inovação.
+          </p>
         </div>
         <div> 
           <button className="px-6 py-3 rounded-full mr-4">Contate-me</button>
