@@ -1,8 +1,22 @@
+# 👩‍💻 Meu Portfólio de Programação e Dados
+
+Bem-vindo(a) ao meu portfólio pessoal! Este projeto foi desenvolvido para consolidar meus conhecimentos em desenvolvimento web e servir como vitrine para meus projetos de dados.
+
+## Tecnologias Utilizadas
+- **Framework:** [Next.js](https://nextjs.org/)
+- **Estilização:** [Tailwind CSS](https://tailwindcss.com/)
+- **Linguagem:** [TypeScript](https://www.typescriptlang.org/)
+- **Deploy:** [Vercel](https://vercel.com/)
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Objetivos do projeto
+- Criar uma interface limpa e intuitiva (inspirada no minimalismo).
+- Praticar conceitos de React como Hooks e Componentização.
+- Documentar projetos de análise e engenharia de dados de forma visual.
 
-First, run the development server:
+## Como rodar o projeto localmente
+
+Primeiro, rode o development server:
 
 ```bash
 npm run dev
