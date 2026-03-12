@@ -1,7 +1,8 @@
 "use client";
-import React from "react"
+import React from "react";
 import Image from "next/image";
 import { TypeAnimation } from "react-type-animation";
+import Link from "next/link";
 
 const HeroSession = () => {
   return (
@@ -19,8 +20,6 @@ const HeroSession = () => {
                 "BackEnd Developer",
                 1000,
                 "Data Scientist",
-                1000,
-                "Information System Student",
                 1000,
               ]}
               wrapper="span"
@@ -42,7 +41,7 @@ const HeroSession = () => {
           </div>
         </div>
         <div className="col-span-5 place-self-center lg:place-self-end mt-8 lg:mt-0">
-          <div className='flex items-center justify-center rounded-full bg-black-950 w-80 h-80 relative overflow-hidden border-2 border-pink-900'>
+          <div className='flex items-center justify-center rounded-full bg-black-950 w-80 h-80 relative overflow-hidden border-2 border-pink-800'>
             <Image 
               src="/images/perfil.png" 
               alt="Perfil"
