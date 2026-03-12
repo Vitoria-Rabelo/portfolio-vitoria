@@ -1,4 +1,4 @@
-# 👩‍💻 Meu Portfólio de Programação e Dados
+# 👩‍💻 Meu Portfólio Pessoal
 
 Bem-vindo(a) ao meu portfólio pessoal! Este projeto foi desenvolvido para consolidar meus conhecimentos em desenvolvimento web e servir como vitrine para meus projetos de dados.
 
