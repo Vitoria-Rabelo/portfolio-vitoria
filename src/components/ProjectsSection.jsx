@@ -26,7 +26,7 @@ const projectsData = [
     title: "Quiz Multiplayer Sockets",
     description: "Implementação original de um sistema de Quiz competitivo com sockets e multithreading.",
     image: "/images/projects/quiz-sockets.png",
-    tag: ["All", "Computer Network"],
+    tag: ["All", "Redes"],
     gitUrl: "https://github.com/Vitoria-Rabelo/quiz-multiplayer-sockets-python",
     previewUrl: "https://github.com/Vitoria-Rabelo/quiz-multiplayer-sockets-python/blob/main/README.md",
   },
@@ -38,6 +38,20 @@ function ProjectsSection() {
       <h2 className="text-center text-4xl font-bold mt-4 mb-8">
         Meus Projetos
       </h2>
+      <div className="text-white flex flex-row justify-center items-center gap-2 py-6">
+        <button className="rounded-full border-2 border-purple-500 px-4 py-3 text-xl cursor-pointer">
+          Todos
+        </button>
+        <button className="rounded-full border-2 border-slate-500 px-4 py-3 text-xl cursor-pointer">
+          Web
+        </button>
+        <button className="rounded-full border-2 border-slate-500 px-4 py-3 text-xl cursor-pointer">
+          BackEnd
+        </button>
+        <button className="rounded-full border-2 border-slate-500 px-4 py-3 text-xl cursor-pointer">
+          Redes
+        </button>
+      </div>
       <div className="grid md:grid-cols-3 gap-8 md:gap-12">
         {projectsData.map((project) => (
           <ProjectCard
