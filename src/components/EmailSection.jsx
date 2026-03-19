@@ -107,7 +107,7 @@ const EmailSection = () => {
           </div>
           <button
             type="submit"
-            className="bg-linear-to-br from-blue-500 via-purple-500 to-pink-500 hover:opacity-90 text-white font-medium py-2.5 px-5 rounded-lg w-full transition-all"
+            className="bg-linear-to-br from-purple-600 via-purple-500 to-pink-500 hover:from-purple-800 hover:to-pink-600 text-white font-medium py-3 px-10 rounded-lg w-fit mx-auto block transition-all duration-300 transform active:scale-95 shadow-md hover:shadow-purple-500/40"
           >
             Enviar Mensagem
           </button>

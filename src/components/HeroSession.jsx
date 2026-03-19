@@ -32,10 +32,10 @@ const HeroSession = () => {
           Desenvolvendo sistemas escaláveis e transformando dados em soluções inteligentes.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <button className="px-6 py-3 w-full sm:w-fit rounded-full bg-linear-to-br from-blue-500 via-purple-500 to-pink-500 hover:bg-slate-200 text-white font-semibold transition-colors">
+            <button className="px-6 py-3 w-full sm:w-fit rounded-full bg-linear-to-br from-purple-600 via-purple-500 to-pink-500 hover:bg-slate-200 text-white font-semibold transition-colors">
               Contate-me
             </button>
-            <button className="px-1 py-1 w-full sm:w-fit rounded-full bg-linear-to-br from-blue-500 via-purpl-500 to-pink-500 hover:bg-slate-800 text-white font-semibold transition-colors">
+            <button className="px-1 py-1 w-full sm:w-fit rounded-full bg-linear-to-br from-purple-600 via-purple-500 to-pink-500 hover:bg-slate-800 text-white font-semibold transition-colors">
               <span className="block bg-[#121212] hover:bg-slate-800 rounded-full px-5 py-2">Download CV</span>
             </button>
           </div>

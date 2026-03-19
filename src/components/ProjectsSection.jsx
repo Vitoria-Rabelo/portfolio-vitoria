@@ -8,7 +8,7 @@ const projectsData = [
   {
     id: 1,
     title: "React Portfolio Website",
-    description: "Meu Portfólio Pessoal | Desenvolvido com Next.js, Tailwind CSS e TypeScript.",
+    description: "Meu Portfólio Pessoal | Desenvolvido com Next.js, Tailwind CSS e TypeScript. Objetivo de apresentar minhas habilidades",
     image: "/images/projects/portfolio-next.png",
     tag: ["Todos", "Web"],
     gitUrl: "https://github.com/Vitoria-Rabelo/portfolio-vitoria",
@@ -54,7 +54,7 @@ const ProjectsSection = () => {
 
   return (
     <section id="projects" className="text-white">
-      <h2 className="text-center text-4xl font-bold mt-4 mb-8 md:mb-12">
+      <h2 className="text-center text-4xl font-bold mt-4 mb-8 md:mb-4">
         Meus Projetos
       </h2>
       <div className="flex flex-row justify-center items-center gap-2 py-6 overflow-x-auto">
