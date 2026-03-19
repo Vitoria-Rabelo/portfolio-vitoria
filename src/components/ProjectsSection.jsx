@@ -9,7 +9,7 @@ const projectsData = [
     id: 1,
     title: "React Portfolio Website",
     description: "Meu Portfólio Pessoal | Desenvolvido com Next.js, Tailwind CSS e TypeScript.",
-    image: "/images/projects/quiz-sockets.png",
+    image: "/images/projects/portfolio-next.png",
     tag: ["Todos", "Web"],
     gitUrl: "https://github.com/Vitoria-Rabelo/portfolio-vitoria",
     previewUrl: "https://github.com/Vitoria-Rabelo/portfolio-vitoria/blob/main/README.md",
