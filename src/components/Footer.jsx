@@ -7,7 +7,7 @@ const Footer = () => {
             <span>
                 &lt;Vitória Rabelo/&gt;
             </span>
-            <p className="text-slate-600">
+            <p className="text-slate-500">
                 Copyright © 2026 Vitória Rabelo Santiago. All rights reserved.
             </p>
         </div>

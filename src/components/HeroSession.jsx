@@ -8,8 +8,8 @@ const HeroSession = () => {
   return (
     <section className="py-16 lg:py-24">
       <div className="grid grid-cols-1 sm:grid-cols-12 gap-8 w-full max-w-7xl mx-auto px-4">
-        <div className="col-span-7 place-self-center text-center lg:text-left">
-          <h1 className="text-white mb-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold">
+        <div className="col-span-7 place-self-center text-center lg:text-left justify-self-start">
+          <h1 className="text-white mb-4 text-4xl sm:text-5xl lg:text-6xl lg:leading-normal font-extrabold">
             <span className="text-transparent bg-clip-text bg-linear-to-r from-purple-400 to-pink-600">Hello, I'm{" "}
             </span>
             <br></br>
