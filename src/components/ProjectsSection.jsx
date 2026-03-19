@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useRef } from "react";
 import ProjectCard from "./ProjectCard";
+import ProjectTag from "./ProjectTag";
+import { motion, useInView } from "framer-motion";
 
 const projectsData = [
   {
@@ -8,7 +10,7 @@ const projectsData = [
     title: "React Portfolio Website",
     description: "Meu Portfólio Pessoal | Desenvolvido com Next.js, Tailwind CSS e TypeScript.",
     image: "/images/projects/quiz-sockets.png",
-    tag: ["All", "Web"],
+    tag: ["Todos", "Web"],
     gitUrl: "https://github.com/Vitoria-Rabelo/portfolio-vitoria",
     previewUrl: "https://github.com/Vitoria-Rabelo/portfolio-vitoria/blob/main/README.md",
   },
@@ -17,7 +19,7 @@ const projectsData = [
     title: "API de Gestão Financeira",
     description: "API de Gestão Financeira e Controle de Gastos Assíncrona desenvolvida com FastAPI, MongoDB e Beanie ODM.",
     image: "/images/projects/finance-beanie.png",
-    tag: ["All", "BackEnd"],
+    tag: ["Todos", "BackEnd"],
     gitUrl: "https://github.com/Vitoria-Rabelo/fastapi-beanie-finance",
     previewUrl: "https://github.com/Vitoria-Rabelo/fastapi-beanie-finance/blob/main/README.md",
   },
@@ -26,46 +28,79 @@ const projectsData = [
     title: "Quiz Multiplayer Sockets",
     description: "Implementação original de um sistema de Quiz competitivo com sockets e multithreading.",
     image: "/images/projects/quiz-sockets.png",
-    tag: ["All", "Redes"],
+    tag: ["Todos", "Redes"],
     gitUrl: "https://github.com/Vitoria-Rabelo/quiz-multiplayer-sockets-python",
     previewUrl: "https://github.com/Vitoria-Rabelo/quiz-multiplayer-sockets-python/blob/main/README.md",
   },
 ];
 
-function ProjectsSection() {
+const ProjectsSection = () => {
+  const [tag, setTag] = useState("Todos");
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  const handleTagChange = (newTag) => {
+    setTag(newTag);
+  };
+
+  const filteredProjects = projectsData.filter((project) =>
+    project.tag.includes(tag)
+  );
+
+  const cardVariants = {
+    initial: { y: 50, opacity: 0 },
+    animate: { y: 0, opacity: 1 },
+  };
+
   return (
-    <section id="projects">
-      <h2 className="text-center text-4xl font-bold mt-4 mb-8">
+    <section id="projects" className="text-white">
+      <h2 className="text-center text-4xl font-bold mt-4 mb-8 md:mb-12">
         Meus Projetos
       </h2>
-      <div className="text-white flex flex-row justify-center items-center gap-2 py-6">
-        <button className="rounded-full border-2 border-purple-500 px-4 py-3 text-xl cursor-pointer">
-          Todos
-        </button>
-        <button className="rounded-full border-2 border-slate-500 px-4 py-3 text-xl cursor-pointer">
-          Web
-        </button>
-        <button className="rounded-full border-2 border-slate-500 px-4 py-3 text-xl cursor-pointer">
-          BackEnd
-        </button>
-        <button className="rounded-full border-2 border-slate-500 px-4 py-3 text-xl cursor-pointer">
-          Redes
-        </button>
+      <div className="flex flex-row justify-center items-center gap-2 py-6 overflow-x-auto">
+        <ProjectTag
+          onClick={handleTagChange}
+          name="Todos"
+          isSelected={tag === "Todos"}
+        />
+        <ProjectTag
+          onClick={handleTagChange}
+          name="Web"
+          isSelected={tag === "Web"}
+        />
+        <ProjectTag
+          onClick={handleTagChange}
+          name="BackEnd"
+          isSelected={tag === "BackEnd"}
+        />
+        <ProjectTag
+          onClick={handleTagChange}
+          name="Redes"
+          isSelected={tag === "Redes"}
+        />
       </div>
-      <div className="grid md:grid-cols-3 gap-8 md:gap-12">
-        {projectsData.map((project) => (
-          <ProjectCard
-            key={project.id}
-            title={project.title}
-            description={project.description}
-            imgUrl={project.image}
-            gitUrl={project.gitUrl}
-            previewUrl={project.previewUrl}
-          />
+      <ul ref={ref} className="grid md:grid-cols-3 gap-8 md:gap-12">
+        {filteredProjects.map((project, index) => (
+          <motion.li
+            key={index}
+            variants={cardVariants}
+            initial="initial"
+            animate={isInView ? "animate" : "initial"}
+            transition={{ duration: 0.3, delay: index * 0.4 }}
+          >
+            <ProjectCard
+              key={project.id}
+              title={project.title}
+              description={project.description}
+              imgUrl={project.image}
+              gitUrl={project.gitUrl}
+              previewUrl={project.previewUrl}
+            />
+          </motion.li>
         ))}
-      </div>
+      </ul>
     </section>
   );
-}
+};
 
 export default ProjectsSection;
