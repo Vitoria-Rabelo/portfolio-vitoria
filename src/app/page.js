@@ -3,6 +3,7 @@ import HeroSession from "@/components/HeroSession";
 import Navbar from "@/components/Navbar";
 import AboutSession from "@/components/AboutSession";
 import ProjectsSection from "@/components/ProjectsSection";
+import EmailSection from "@/components/EmailSection";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
         <HeroSession/>
         <AboutSession/>
         <ProjectsSection/>
+        <EmailSection/>
       </div>
     </main>
   );
