@@ -12,13 +12,14 @@ const navLinks = [
     },
     {
         title: "Projetos",
-        path: "#projetos",
+        path: "#projects",
     },
     {
         title: "Contate-me",
-        path: "#contate-me",
+        path: "#contact",
     }
 ]
+
 const Navbar = () => {
     const [navbarOpen, setNavbarOpen] = useState(false);
 

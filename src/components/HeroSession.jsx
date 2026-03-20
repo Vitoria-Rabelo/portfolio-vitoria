@@ -32,16 +32,21 @@ const HeroSession = () => {
           Desenvolvendo sistemas escaláveis e transformando dados em soluções inteligentes.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <button className="px-6 py-3 w-full sm:w-fit rounded-full bg-linear-to-br from-purple-600 via-purple-500 to-pink-500 hover:bg-slate-200 text-white font-semibold transition-colors">
+            <button className="px-6 py-3 w-full sm:w-fit rounded-lg bg-linear-to-br from-purple-600 via-purple-500 to-pink-500 hover:from-purple-700 hover:to-pink-700 text-white font-semibold transition-all duration-300 transform active:scale-95 shadow-md">
               Contate-me
             </button>
-            <button className="px-1 py-1 w-full sm:w-fit rounded-full bg-linear-to-br from-purple-600 via-purple-500 to-pink-500 hover:bg-slate-800 text-white font-semibold transition-colors">
-              <span className="block bg-[#121212] hover:bg-slate-800 rounded-full px-5 py-2">Download CV</span>
+            <button className="px-1 py-1 w-full sm:w-fit rounded-lg bg-linear-to-br from-purple-600 via-purple-500 to-pink-500  hover:from-purple-700 hover:to-pink-700 hover:bg-slate-800 text-white font-semibold transition-colors">
+              <span className="block bg-[#121212] hover:bg-zinc-800 rounded-lg px-5 py-2">
+                Download CV
+                </span>
+            </button>
+            <button className="px-6 py-3 w-full sm:w-fit rounded-lg bg-linear-to-br from-purple-600 via-purple-500 to-pink-500 hover:from-purple-700 hover:to-pink-700 text-white font-semibold transition-all duration-300 transform active:scale-95 shadow-md">
+              Lattes CV
             </button>
           </div>
         </div>
         <div className="col-span-5 place-self-center lg:place-self-end mt-8 lg:mt-0">
-          <div className='flex items-center justify-center rounded-full bg-black-950 w-80 h-80 relative overflow-hidden border-2 border-pink-800'>
+          <div className='flex items-center justify-center rounded-full bg-gray-850 w-80 h-80 relative overflow-hidden border-2 border-pink-800'>
             <Image 
               src="/images/perfil.png" 
               alt="Perfil"
