@@ -1,5 +1,5 @@
 "use client";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Link from "next/link";
 import NavLink from "./NavLink";
 import {Bars3Icon, XMarkIcon} from "@heroicons/react/24/solid";
@@ -11,12 +11,12 @@ const navLinks = [
         path: "#home",
     },
     {
-        title: "Skills",
-        path:"#skills"
-    },
-    {
         title: "Sobre",
         path: "#about",
+    },
+    {
+        title: "Skills",
+        path:"#skills"
     },
     {
         title: "Projetos",
@@ -30,6 +30,28 @@ const navLinks = [
 
 const Navbar = () => {
     const [navbarOpen, setNavbarOpen] = useState(false);
+    const [activeSection, setActiveSection] = useState("home");
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const sections = navLinks.map(link => link.path.replace("#", ""));
+            const scrollPosition = window.scrollY + 150;
+
+            sections.forEach((section) => {
+                const element = document.getElementById(section);
+                if (element) {
+                    const offsetTop = element.offsetTop;
+                    const height = element.offsetHeight;
+                    if (scrollPosition >= offsetTop && scrollPosition < offsetTop + height) {
+                        setActiveSection(section);
+                    }
+                }
+            });
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     return(
         <nav className="fixed top-0 left-0 right-0 z-10 bg-[#121212] bg-opacity-90">
@@ -52,14 +74,18 @@ const Navbar = () => {
                         {
                             navLinks.map((link, index) => (
                                 <li key={index}>
-                                    <NavLink href={link.path} title={link.title} />
+                                    <NavLink 
+                                        href={link.path} 
+                                        title={link.title} 
+                                        active={activeSection === link.path.replace("#", "")}
+                                    />
                                 </li>
                             ))
                         }
                     </ul>
                 </div>
             </div>
-            {navbarOpen ? <MenuOverlay links={navLinks}/> : null}
+            {navbarOpen ? <MenuOverlay links={navLinks} activeSection={activeSection}/> : null}
         </nav>
     )
 }
