@@ -32,7 +32,14 @@ const HeroSession = () => {
           Desenvolvendo sistemas escaláveis e transformando dados em soluções inteligentes.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <button className="px-6 py-3 w-full sm:w-fit rounded-lg bg-linear-to-br from-purple-600 via-purple-500 to-pink-500 hover:from-purple-700 hover:to-pink-700 text-white font-semibold transition-all duration-300 transform active:scale-95 shadow-md">
+            <button 
+              onClick={() => {
+              const contactSection = document.getElementById("contact");
+              if (contactSection) {
+                contactSection.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+            className="px-6 py-3 w-full sm:w-fit rounded-lg bg-linear-to-br from-purple-600 via-purple-500 to-pink-500 hover:from-purple-700 hover:to-pink-700 text-white font-semibold transition-all duration-300 transform active:scale-95 shadow-md">
               Contate-me
             </button>
             <button className="px-1 py-1 w-full sm:w-fit rounded-lg bg-linear-to-br from-purple-600 via-purple-500 to-pink-500  hover:from-purple-700 hover:to-pink-700 hover:bg-slate-800 text-white font-semibold transition-colors">
