@@ -31,7 +31,7 @@ const Knowledges = () => {
   return (
     <section
       id="skills"
-      className="py-24 relative flex flex-col items-center justify-center mx-auto"
+      className="py-24 relative flex flex-col items-center justify-center mx-auto scroll-mt-24"
     >
       {/* Título da Seção */}
       <div className="text-center mb-12">

@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const HeroSession = () => {
   return (
-    <section className="py-16 lg:py-24">
+    <section className="py-16 lg:py-24 scroll-mt-24" id="home">
       <div className="grid grid-cols-1 sm:grid-cols-12 gap-8 w-full max-w-7xl mx-auto px-4">
         <div className="col-span-7 place-self-center text-center lg:text-left justify-self-start">
           <h1 className="text-white mb-4 text-4xl sm:text-5xl lg:text-6xl lg:leading-normal font-extrabold">
@@ -28,7 +28,7 @@ const HeroSession = () => {
             />
             
           </h1>
-          <p className="text-[#ADB7BE] text-basecsm:text-lg mb-6 lg:text-xl">
+          <p className="text-[#ADB7BE] text-base sm:text-lg mb-6 lg:text-xl">
           Desenvolvendo sistemas escaláveis e transformando dados em soluções inteligentes.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
