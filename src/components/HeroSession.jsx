@@ -7,8 +7,8 @@ import Link from "next/link";
 const HeroSession = () => {
   return (
     <section className="py-16 lg:py-24 scroll-mt-24" id="home">
-      <div className="grid grid-cols-1 sm:grid-cols-12 gap-8 w-full max-w-7xl mx-auto px-4">
-        <div className="col-span-7 place-self-center text-center lg:text-left justify-self-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full max-w-7xl mx-auto px-4">
+        <div className="col-span-1 lg:col-span-7 place-self-center text-center lg:text-left">
           <h1 className="text-white mb-4 text-4xl sm:text-5xl lg:text-6xl lg:leading-normal font-extrabold">
             <span className="text-transparent bg-clip-text bg-linear-to-r from-purple-400 to-pink-600">Hello, I'm{" "}
             </span>
@@ -60,15 +60,14 @@ const HeroSession = () => {
             </Link>
           </div>
         </div>
-        <div className="col-span-5 place-self-center lg:place-self-end mt-8 lg:mt-0">
-          <div className='flex items-center justify-center rounded-full bg-gray-850 w-80 h-80 relative overflow-hidden border-2 border-pink-800'>
+        <div className="col-span-1 lg:col-span-5 flex justify-center lg:justify-end mt-10 lg:mt-0">
+         <div className="relative w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80">
             <Image 
               src="/images/perfil.png" 
-              alt="Perfil"
-              className='w-full h-full object-cover rounded-full'
-              width={320}
-              height={320}
+              alt="Perfil de Vitória Rabelo"
+              fill
               priority
+              className="rounded-full object-cover border-2 border-gray-800 shadow-2xl"
             />
           </div>
         </div>
