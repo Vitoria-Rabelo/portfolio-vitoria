@@ -26,30 +26,38 @@ const HeroSession = () => {
               speed={50}
               repeat={Infinity}
             />
-            
           </h1>
           <p className="text-[#ADB7BE] text-base sm:text-lg mb-6 lg:text-xl">
-          Desenvolvendo sistemas escaláveis e transformando dados em soluções inteligentes.
+            Desenvolvendo sistemas escaláveis e transformando dados em soluções inteligentes.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <button 
               onClick={() => {
-              const contactSection = document.getElementById("contact");
-              if (contactSection) {
-                contactSection.scrollIntoView({ behavior: "smooth" });
-              }
-            }}
-            className="px-6 py-3 w-full sm:w-fit rounded-lg bg-linear-to-br from-purple-600 via-purple-500 to-pink-500 hover:from-purple-700 hover:to-pink-700 text-white font-semibold transition-all duration-300 transform active:scale-95 shadow-md">
+                const contactSection = document.getElementById("contact");
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+              className="px-6 py-3 w-full sm:w-fit rounded-lg bg-linear-to-br from-purple-600 via-purple-500 to-pink-500 hover:from-purple-700 hover:to-pink-700 text-white font-semibold transition-all duration-300 transform active:scale-95 shadow-md"
+            >
               Contate-me
             </button>
-            <button className="px-1 py-1 w-full sm:w-fit rounded-lg bg-linear-to-br from-purple-600 via-purple-500 to-pink-500  hover:from-purple-700 hover:to-pink-700 hover:bg-slate-800 text-white font-semibold transition-colors">
-              <span className="block bg-[#121212] hover:bg-zinc-800 rounded-lg px-5 py-2">
+            <a 
+              href="/curriculo-vitoria-rabelo.pdf" 
+              download="Curriculo-Vitoria-Rabelo.pdf"
+              className="px-1 py-1 w-full sm:w-fit rounded-lg bg-linear-to-br from-purple-600 via-purple-500 to-pink-500 hover:from-purple-700 hover:to-pink-700 text-white font-semibold transition-all inline-block"
+            >
+              <span className="block bg-[#121212] hover:bg-zinc-800 rounded-lg px-5 py-2 text-center">
                 Download CV
-                </span>
-            </button>
-            <button className="px-6 py-3 w-full sm:w-fit rounded-lg bg-linear-to-br from-purple-600 via-purple-500 to-pink-500 hover:from-purple-700 hover:to-pink-700 text-white font-semibold transition-all duration-300 transform active:scale-95 shadow-md">
+              </span>
+            </a>
+            <Link 
+              href="https://lattes.cnpq.br/3223426985469487"
+              target="_blank"
+              className="px-6 py-3 w-full sm:w-fit rounded-lg bg-linear-to-br from-purple-600 via-purple-500 to-pink-500 hover:from-purple-700 hover:to-pink-700 text-white font-semibold transition-all duration-300 transform active:scale-95 shadow-md text-center"
+            >
               Lattes CV
-            </button>
+            </Link>
           </div>
         </div>
         <div className="col-span-5 place-self-center lg:place-self-end mt-8 lg:mt-0">
@@ -60,6 +68,7 @@ const HeroSession = () => {
               className='w-full h-full object-cover rounded-full'
               width={320}
               height={320}
+              priority
             />
           </div>
         </div>
@@ -68,4 +77,4 @@ const HeroSession = () => {
   )
 }
 
-export default HeroSession
+export default HeroSession;
