@@ -4,7 +4,7 @@ import Image from "next/image";
 
 function AboutSession() {
   return (
-    <section className="text-white" id="about">
+    <section className="text-white scroll-mt-24" id="about">
         <div className="md:grid md:grid-cols-12 gap-10 items-center py-8 px-4 sm:py-16">
             <div className="md:col-span-5 flex justify-center">
                 <Image 
