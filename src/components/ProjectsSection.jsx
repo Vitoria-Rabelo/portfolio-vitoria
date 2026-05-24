@@ -28,9 +28,27 @@ const projectsData = [
     title: "Quiz Multiplayer Sockets",
     description: "Implementação original de um sistema de Quiz competitivo com sockets e multithreading.",
     image: "/images/projects/quiz-sockets.png",
-    tag: ["Todos", "Redes"],
+    tag: ["Todos", "BackEnd"],
     gitUrl: "https://github.com/Vitoria-Rabelo/quiz-multiplayer-sockets-python",
     previewUrl: "https://github.com/Vitoria-Rabelo/quiz-multiplayer-sockets-python/blob/main/README.md",
+  },
+  {
+    id: 4,
+    title: "Nutri Track - Plataforma Nutricional",
+    description: "Solução completa de gestão nutricional desenvolvida para modernizar a interação entre nutricionistas e pacientes.",
+    image: "/images/projects/nutritrack.png",
+    tag: ["Todos", "Web"],
+    gitUrl: "https://github.com/Vitoria-Rabelo/NutriTrack",
+    previewUrl: "https://github.com/Vitoria-Rabelo/NutriTrack/blob/main/README.md",
+  },
+  {
+    id: 5,
+    title: "Avante Carreiras",
+    description: "O projeto Avante Carreiras consiste no desenvolvimento de um sistema web voltado para o setor de Recursos Humanos da Avante Tech Jr., com o objetivo de organizar, centralizar e automatizar a gestão de documentos dos membros. ",
+    image: "/images/projects/avante.png",
+    tag: ["Todos", "Web"],
+    gitUrl: "https://github.com/PriHolanda/Avante-Carreiras",
+    previewUrl: "https://github.com/PriHolanda/Avante-Carreiras/blob/main/README.md",
   },
 ];
 
@@ -72,11 +90,6 @@ const ProjectsSection = () => {
           onClick={handleTagChange}
           name="BackEnd"
           isSelected={tag === "BackEnd"}
-        />
-        <ProjectTag
-          onClick={handleTagChange}
-          name="Redes"
-          isSelected={tag === "Redes"}
         />
       </div>
       <ul ref={ref} className="grid md:grid-cols-3 gap-8 md:gap-12">
