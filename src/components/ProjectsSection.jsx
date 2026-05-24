@@ -34,7 +34,7 @@ const projectsData = [
   },
   {
     id: 4,
-    title: "Nutri Track - Plataforma Nutricional",
+    title: "Plataforma Nutricional",
     description: "Solução completa de gestão nutricional desenvolvida para modernizar a interação entre nutricionistas e pacientes.",
     image: "/images/projects/nutritrack.png",
     tag: ["Todos", "Web"],
@@ -44,7 +44,7 @@ const projectsData = [
   {
     id: 5,
     title: "Avante Carreiras",
-    description: "O projeto Avante Carreiras consiste no desenvolvimento de um sistema web voltado para o setor de Recursos Humanos da Avante Tech Jr., com o objetivo de organizar, centralizar e automatizar a gestão de documentos dos membros. ",
+    description: "Sistema voltado para o setor de Recursos Humanos da Avante Tech Jr., com o objetivo de automatizar a gestão de documentos. ",
     image: "/images/projects/avante.png",
     tag: ["Todos", "Web"],
     gitUrl: "https://github.com/PriHolanda/Avante-Carreiras",
@@ -92,7 +92,7 @@ const ProjectsSection = () => {
           isSelected={tag === "BackEnd"}
         />
       </div>
-      <ul ref={ref} className="grid md:grid-cols-3 gap-8 md:gap-12">
+      <ul ref={ref} className="grid md:grid-cols-3 gap-8 md:gap-12 group">
         {filteredProjects.map((project, index) => (
           <motion.li
             key={index}
@@ -100,6 +100,7 @@ const ProjectsSection = () => {
             initial="initial"
             animate={isInView ? "animate" : "initial"}
             transition={{ duration: 0.3, delay: index * 0.4 }}
+            className="transition-all duration-300 group-hover:scale-[0.98] group-hover:blur-[2px] hover:scale-105! hover:blur-none!"
           >
             <ProjectCard
               key={project.id}
