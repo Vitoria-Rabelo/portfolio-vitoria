@@ -23,6 +23,10 @@ const navLinks = [
         path: "#projects",
     },
     {
+        title: "Trajetória",
+        path: "#timeline",
+    },
+    {
         title: "Contate-me",
         path: "#contact",
     }
