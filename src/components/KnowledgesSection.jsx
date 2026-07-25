@@ -35,7 +35,7 @@ const Knowledges = () => {
     >
       {/* Título da Seção */}
       <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-white mb-4">Minhas Skills</h2>
+        <h2 className="text-4xl font-bold text-foreground mb-4">Minhas Skills</h2>
         <div className="h-1 w-20 bg-purple-500 mx-auto rounded-full"></div>
       </div>
 
@@ -52,12 +52,12 @@ const Knowledges = () => {
             transitionSpeed={1500}
           >
             <article
-              className="group bg-[#18191E] border border-[#33353F] rounded-xl flex flex-col justify-center items-center w-full aspect-square p-4 cursor-pointer hover:border-purple-500 transition-all duration-300"
+              className="group bg-(--card) border border-(--border) rounded-xl flex flex-col justify-center items-center w-full aspect-square p-4 cursor-pointer hover:border-purple-500 transition-all duration-300"
             >
               <div className="text-purple-500 text-4xl mb-2 group-hover:scale-110 transition-transform duration-300">
                 {icon}
               </div>
-              <p className="text-[#ADB7BE] text-xs font-medium group-hover:text-white transition-colors">
+              <p className="text-(--muted) text-xs font-medium group-hover:text-foreground transition-colors">
                 {name}
               </p>
             </article>
