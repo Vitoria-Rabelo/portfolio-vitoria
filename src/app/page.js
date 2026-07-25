@@ -7,6 +7,7 @@ import EmailSection from "@/components/EmailSection";
 import Footer from "@/components/Footer";
 import KnowledgesSection from "@/components/KnowledgesSection";
 import CustomCursor from "@/components/CustomCursor";
+import TimeLine from "@/components/TimeLine";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <AboutSession />
         <KnowledgesSection />
         <ProjectsSection />
+        <TimeLine />
         <EmailSection />
       </div>
       <Footer />
