@@ -71,7 +71,7 @@ const ProjectsSection = () => {
   };
 
   return (
-    <section id="projects" className="text-white scroll-mt-24">
+    <section id="projects" className="text-[var(--foreground)] scroll-mt-24">
       <h2 className="text-center text-4xl font-bold mt-4 mb-8 md:mb-4">
         Meus Projetos
       </h2>

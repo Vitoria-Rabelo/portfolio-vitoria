@@ -48,10 +48,10 @@ const EmailSection = () => {
     <div className="absolute z-0 bg-[radial-gradient(circle,purple_0%,transparent_70%)] opacity-40 rounded-full h-96 w-96 blur-3xl top-3/4 -left-10 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
 
       <div className="z-10">
-        <h5 className="text-xl font-bold text-white my-2">
+        <h5 className="text-xl font-bold text-[var(--foreground)] my-2">
           Entre em contato!
         </h5>
-        <p className="text-[#ADB7BE] mb-4 max-w-md text-justify">
+        <p className="text-[var(--muted)] mb-4 max-w-md text-justify">
           Estou sempre em busca de novos desafios e conexões. Se você tiver uma proposta
           ou quiser apenas trocar uma ideia sobre tecnologia, sinta-se à vontade para entrar em contato!
         </p>
@@ -68,7 +68,7 @@ const EmailSection = () => {
       <div className="z-10">
         <form className="flex flex-col" onSubmit={handleSubmit}>
           <div className="mb-6">
-            <label htmlFor="email" className="text-white block mb-2 text-sm font-medium">
+            <label htmlFor="email" className="text-[var(--foreground)] block mb-2 text-sm font-medium">
               Seu email
             </label>
             <input  
@@ -76,12 +76,12 @@ const EmailSection = () => {
               type="email" 
               id="email" 
               required 
-              className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5 outline-none focus:border-purple-500 transition-colors"
+              className="bg-[var(--card)] border border-[var(--border)] placeholder-[var(--muted)] text-[var(--foreground)] text-sm rounded-lg block w-full p-2.5 outline-none focus:border-purple-500 transition-colors"
               placeholder="seuemail@gmail.com"
             />
           </div>
           <div className="mb-6">
-            <label htmlFor="subject" className="text-white block mb-2 text-sm font-medium">
+            <label htmlFor="subject" className="text-[var(--foreground)] block mb-2 text-sm font-medium">
               Assunto
             </label>
             <input  
@@ -89,19 +89,19 @@ const EmailSection = () => {
               type="text" 
               id="subject" 
               required 
-              className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5 outline-none focus:border-purple-500 transition-colors"
+              className="bg-[var(--card)] border border-[var(--border)] placeholder-[var(--muted)] text-[var(--foreground)] text-sm rounded-lg block w-full p-2.5 outline-none focus:border-purple-500 transition-colors"
               placeholder="Apenas diga oi"
             />
           </div>
           <div className="mb-6">
-            <label htmlFor="message" className="text-white block mb-2 text-sm font-medium">
+            <label htmlFor="message" className="text-[var(--foreground)] block mb-2 text-sm font-medium">
               Mensagem
             </label>
             <textarea
               name="message"
               id="message"
               rows="4"
-              className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5 outline-none focus:border-purple-500 transition-colors"
+              className="bg-[var(--card)] border border-[var(--border)] placeholder-[var(--muted)] text-[var(--foreground)] text-sm rounded-lg block w-full p-2.5 outline-none focus:border-purple-500 transition-colors"
               placeholder="Vamos conversar sobre..."
             />
           </div>

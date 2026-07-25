@@ -10,17 +10,17 @@ import CustomCursor from "@/components/CustomCursor";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col bg-[#121212] cursor-none">
+    <main className="flex min-h-screen flex-col bg-background text-foreground cursor-none transition-colors duration-300">
       <CustomCursor />
-      <Navbar/>
+      <Navbar />
       <div className="container mx-auto px-12 py-4">
-        <HeroSession/>
-        <AboutSession/>
-        <KnowledgesSection/>
-        <ProjectsSection/>
-        <EmailSection/>
+        <HeroSession />
+        <AboutSession />
+        <KnowledgesSection />
+        <ProjectsSection />
+        <EmailSection />
       </div>
-        <Footer/>
+      <Footer />
     </main>
   );
 }
