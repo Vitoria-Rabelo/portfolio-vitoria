@@ -162,7 +162,7 @@ export default function TimeLine() {
 
             <motion.div
               style={{ scaleY, transformOrigin: "top" }}
-              className="absolute left-4 md:left-1/3 top-0 bottom-0 w-0.5 bg-gradient-to-b from-indigo-800 via-purple-500 to-rose-500 -translate-x-1/2 z-10"
+              className="absolute left-4 md:left-1/3 top-0 bottom-0 w-0.5 bg-linear-to-b from-indigo-800 via-purple-500 to-rose-500 -translate-x-1/2 z-10"
             />
 
             <motion.div
@@ -179,41 +179,27 @@ export default function TimeLine() {
               </div>
               {timelineEvents.map((event, index) => {
                 const total = timelineEvents.length;
-                const step = 1 / total;
-                const start = index * step;
-                const end = start + step;
-
-                const fadeInStart = start;
-                const fadeInEnd = start + step * 0.15;
-                const fadeOutStart = end - step * 0.15;
-                const fadeOutEnd = end;
-
-                const opacity = useTransform(
-                  progressMotion,
-                  [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd],
-                  [0, 1, 1, 0]
+                const activeIndex = Math.min(
+                  total - 1,
+                  progressValue >= 0.99
+                    ? total - 1
+                    : Math.floor(progressValue * (total - 1))
                 );
-
-                const isVisible =
-                  progressValue >= fadeInStart && progressValue <= fadeOutEnd;
-
+                const isActive = index === activeIndex;
+                const opacity = isActive ? 1 : 0;
                 const zIndex = 10 + index;
-
-                const pointerEvents =
-                  progressValue >= fadeInEnd && progressValue <= fadeOutStart
-                    ? "auto"
-                    : "none";
+                const pointerEvents = isActive ? "auto" : "none";
 
                 const leftX = useTransform(
                   progressMotion,
-                  [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd],
-                  [-20, 0, 0, -20]
+                  [index / (total - 1), (index + 1) / (total - 1)],
+                  [-20, 0]
                 );
 
                 const rightX = useTransform(
                   progressMotion,
-                  [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd],
-                  [20, 0, 0, 20]
+                  [index / (total - 1), (index + 1) / (total - 1)],
+                  [20, 0]
                 );
 
                 return (
@@ -221,7 +207,7 @@ export default function TimeLine() {
                     key={index}
                     style={{ opacity, zIndex, pointerEvents }}
                     className={`absolute inset-0 grid-cols-1 md:grid-cols-12 gap-6 items-center ${
-                      isVisible ? "grid" : "hidden"
+                      isActive ? "grid" : "hidden"
                     }`}
                   >
                     <motion.div
