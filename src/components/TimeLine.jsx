@@ -1,6 +1,6 @@
 "use client";
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useRef, useEffect, useState } from "react";
+import { motion, useScroll, useTransform, useMotionValue } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 
 const timelineEvents = [
@@ -76,8 +76,73 @@ export default function TimeLine() {
     offset: ["start start", "end end"],
   });
 
-  const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const ballTop = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const progressMotion = useMotionValue(0);
+  const [progressValue, setProgressValue] = useState(0);
+
+  useEffect(() => {
+    let manualAttached = false;
+    let cleanupManual = null;
+    const fired = { value: false };
+
+    // subscribe framer-motion scroll if available
+    let unsub = null;
+    if (scrollYProgress && scrollYProgress.onChange) {
+      unsub = scrollYProgress.onChange((v) => {
+        fired.value = true;
+        const num = Number((v || 0).toFixed(3));
+        progressMotion.set(num);
+        setProgressValue(num);
+      });
+    }
+
+    // fallback: if framer-motion doesn't fire shortly after mount, attach manual scroll listener
+    const computeManual = () => {
+      const el = targetRef.current;
+      if (!el || typeof window === "undefined") return;
+      const rect = el.getBoundingClientRect();
+      const scrollY = window.scrollY || window.pageYOffset;
+      const elTop = rect.top + scrollY;
+      const total = elTop + rect.height - window.innerHeight;
+      let value = 0;
+      if (total > 0) value = (scrollY - elTop) / total;
+      value = Math.min(Math.max(value || 0, 0), 1);
+      progressMotion.set(value);
+      setProgressValue(Number(value.toFixed(3)));
+    };
+
+    const attachManual = () => {
+      if (manualAttached) return;
+      manualAttached = true;
+      computeManual();
+      window.addEventListener("scroll", computeManual, { passive: true });
+      window.addEventListener("resize", computeManual);
+      cleanupManual = () => {
+        window.removeEventListener("scroll", computeManual);
+        window.removeEventListener("resize", computeManual);
+      };
+    };
+
+    const timeout = setTimeout(() => {
+      if (!fired.value) attachManual();
+    }, 400);
+
+    // also attach when user interacts (safeguard)
+    const onFirstScroll = () => {
+      if (!fired.value) attachManual();
+      window.removeEventListener("scroll", onFirstScroll);
+    };
+    window.addEventListener("scroll", onFirstScroll, { passive: true });
+
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener("scroll", onFirstScroll);
+      if (unsub) unsub();
+      if (cleanupManual) cleanupManual();
+    };
+  }, [scrollYProgress, progressMotion, targetRef]);
+
+  const scaleY = useTransform(progressMotion, [0, 1], [0, 1]);
+  const ballTop = useTransform(progressMotion, [0, 1], ["0%", "100%"]);
 
   return (
     <section
@@ -107,6 +172,12 @@ export default function TimeLine() {
             />
 
             <div className="relative w-full h-full">
+              {/* Debug overlay: mostra scrollYProgress em dev */}
+              <div className="fixed right-4 bottom-4 z-50 pointer-events-none">
+                <div className="bg-white/90 dark:bg-black/80 text-xs text-slate-900 dark:text-white px-2 py-1 rounded shadow">
+                  scrollYProgress: {progressValue}
+                </div>
+              </div>
               {timelineEvents.map((event, index) => {
                 const total = timelineEvents.length;
                 const step = 1 / total;
@@ -119,34 +190,34 @@ export default function TimeLine() {
                 const fadeOutEnd = end;
 
                 const opacity = useTransform(
-                  scrollYProgress,
+                  progressMotion,
                   [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd],
                   [0, 1, 1, 0]
                 );
 
                 const display = useTransform(
-                  scrollYProgress,
+                  progressMotion,
                   (v) => (v >= fadeInStart && v <= fadeOutEnd ? "grid" : "none")
                 );
 
                 const zIndex = useTransform(
-                  scrollYProgress,
+                  progressMotion,
                   (v) => (v >= fadeInStart && v <= fadeOutEnd ? 20 : 0)
                 );
 
                 const pointerEvents = useTransform(
-                  scrollYProgress,
+                  progressMotion,
                   (v) => (v >= fadeInEnd && v <= fadeOutStart ? "auto" : "none")
                 );
 
                 const leftX = useTransform(
-                  scrollYProgress,
+                  progressMotion,
                   [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd],
                   [-20, 0, 0, -20]
                 );
 
                 const rightX = useTransform(
-                  scrollYProgress,
+                  progressMotion,
                   [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd],
                   [20, 0, 0, 20]
                 );
@@ -161,7 +232,7 @@ export default function TimeLine() {
                       style={{ x: leftX }}
                       className="md:col-span-4 md:text-right pl-12 md:pl-0 pr-0 md:pr-8 pointer-events-none"
                     >
-                      <span className="text-4xl md:text-6xl font-black font-mono tracking-tighter text-slate-900 dark:text-white block drop-shadow-sm">
+                      <span className="timeline-year text-4xl md:text-6xl font-black font-mono tracking-tighter text-pink-600 dark:text-white block drop-shadow-sm">
                         {event.year}
                       </span>
                       <p className="text-xs md:text-sm font-bold uppercase tracking-wider text-pink-600 dark:text-pink-500 mt-2">
