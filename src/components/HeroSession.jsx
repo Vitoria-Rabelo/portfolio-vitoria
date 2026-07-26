@@ -7,8 +7,8 @@ import Link from "next/link";
 const HeroSession = () => {
   return (
     <section className="py-16 lg:py-24 scroll-mt-24" id="home">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full max-w-7xl mx-auto px-4">
-        <div className="col-span-1 lg:col-span-7 place-self-center text-center lg:text-left">
+      <div className="hero-stack flex flex-col-reverse lg:grid lg:grid-cols-12 gap-8 w-full max-w-7xl mx-auto px-4">
+        <div className="col-span-1 lg:col-span-7 place-self-center text-center lg:text-left lg:order-1 order-last">
           <h1 className="text-foreground mb-4 text-4xl sm:text-5xl lg:text-6xl lg:leading-normal font-extrabold">
             <span className="text-transparent bg-clip-text bg-linear-to-r from-purple-400 to-pink-600">Hello, I'm{" "}
             </span>
@@ -60,7 +60,7 @@ const HeroSession = () => {
             </Link>
           </div>
         </div>
-        <div className="col-span-1 lg:col-span-5 flex justify-center lg:justify-end mt-10 lg:mt-0">
+        <div className="col-span-1 lg:col-span-5 flex justify-center lg:justify-end lg:order-last order-first mb-8 lg:mb-0">
          <div className="relative w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80">
             <Image 
               src="/images/perfil.png" 

@@ -8,9 +8,11 @@ import Image from "next/image";
 const EmailSection = () => {
 
   const [emailSubmitted, setEmailSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage("");
     const data = {
       email: e.target.email.value,
       subject: e.target.subject.value,
@@ -36,6 +38,10 @@ const EmailSection = () => {
     if (response.status === 200) {
       console.log("Menssagem enviada.");
       setEmailSubmitted(true);
+    } else {
+      console.error("Erro ao enviar mensagem:", resData);
+      setErrorMessage(resData?.error || "Não foi possível enviar a mensagem.");
+      setEmailSubmitted(false);
     }
   };
 
@@ -111,13 +117,14 @@ const EmailSection = () => {
           >
             Enviar Mensagem
           </button>
-          {
-            emailSubmitted && (
-              <p className="text-green-500 text-sm mt-2">
-                Email enviado com sucesso!
-              </p>
-            )
-          }
+          {emailSubmitted && (
+            <p className="text-green-500 text-sm mt-2">
+              Email enviado com sucesso!
+            </p>
+          )}
+          {errorMessage && (
+            <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
+          )}
         </form>
       </div>
     </section>
