@@ -1,6 +1,6 @@
 "use client";
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useRef, useEffect, useState } from "react";
+import { motion, useTransform, useMotionValue } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 
 const timelineEvents = [
@@ -8,8 +8,7 @@ const timelineEvents = [
     year: "2021 - 2023",
     company: "EEEP Juarez Távora",
     role: "Técnico em Redes de Computadores",
-    type: "text",
-    tag: "Redes",
+    type: "text", tag: "Redes",
     description: "Curso técnico integrado ao Ensino Médio.",
     link: "https://www.instagram.com/eeep.jtavora/",
   },
@@ -33,7 +32,7 @@ const timelineEvents = [
     description:
       "Bacharelado em Sistemas de Informação na Universidade Federal do Ceará (UFC).",
     imgSrc: "/images/ufc.jpg",
-    link: "https://www.quixada.ufc.br", 
+    link: "https://www.quixada.ufc.br",
   },
   {
     year: "2025",
@@ -44,7 +43,7 @@ const timelineEvents = [
     description:
       "Criação e execução de projetos acadêmicos e sociais. Gestão de tarefas, aprimorando liderança, autogestão e trabalho em equipe.",
     imgSrc: "/images/pet.jpg",
-    link: "https://linktr.ee/petsi?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAcGRvZgJleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA85MzY2MTk3NDMzOTI0NTkAAadliD5T1xTV5PwredU52My0Zp_LpzS1i_dqyA46RfdlIiPtWbrRdKwUqwXFxw_aem_1oiEA_mdZ_ojq3vsKFxdQg", 
+    link: "https://linktr.ee/petsi?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAcGRvZgJleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA85MzY2MTk3NDMzOTI0NTkAAadliD5T1xTV5PwredU52My0Zp_LpzS1i_dqyA46RfdlIiPtWbrRdKwUqwXFxw_aem_1oiEA_mdZ_ojq3vsKFxdQg",
   },
   {
     year: "2025 - 2026",
@@ -70,14 +69,38 @@ const timelineEvents = [
 
 export default function TimeLine() {
   const targetRef = useRef(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start start", "end end"],
-  });
 
-  const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const ballTop = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const progressMotion = useMotionValue(0);
+  const [progressValue, setProgressValue] = useState(0);
+
+  useEffect(() => {
+    const computeManual = () => {
+      const el = targetRef.current;
+      if (!el || typeof window === "undefined") return;
+      const rect = el.getBoundingClientRect();
+      const scrollY = window.scrollY || window.pageYOffset;
+      const elTop = rect.top + scrollY;
+      const total = rect.height - window.innerHeight;
+      let value = 0;
+      if (total > 0) value = (scrollY - elTop) / total;
+      value = Math.min(Math.max(value || 0, 0), 1);
+      const num = Number(value.toFixed(3));
+      progressMotion.set(num);
+      setProgressValue(num);
+    };
+
+    computeManual();
+    window.addEventListener("scroll", computeManual, { passive: true });
+    window.addEventListener("resize", computeManual);
+
+    return () => {
+      window.removeEventListener("scroll", computeManual);
+      window.removeEventListener("resize", computeManual);
+    };
+  }, [progressMotion, targetRef]);
+
+  const scaleY = useTransform(progressMotion, [0, 1], [0, 1]);
+  const ballTop = useTransform(progressMotion, [0, 1], ["0%", "100%"]);
 
   return (
     <section
@@ -86,9 +109,7 @@ export default function TimeLine() {
       className="relative h-[450vh] w-full text-slate-900 dark:text-white transition-colors"
     >
       <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
-        
         <div className="container p-6 md:p-12 mx-auto h-[85vh] flex flex-col justify-between">
-          
           <div className="text-center z-20 mb-6">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
               Minha Trajetória
@@ -96,12 +117,11 @@ export default function TimeLine() {
           </div>
 
           <div className="relative flex-1 w-full flex items-center justify-center">
-            
             <div className="absolute left-4 md:left-1/3 top-0 bottom-0 w-px bg-slate-300 dark:bg-zinc-800 -translate-x-1/2" />
 
             <motion.div
               style={{ scaleY, transformOrigin: "top" }}
-              className="absolute left-4 md:left-1/3 top-0 bottom-0 w-0.5 bg-gradient-to-b from-indigo-800 via-purple-500 to-rose-500 -translate-x-1/2 z-10"
+              className="absolute left-4 md:left-1/3 top-0 bottom-0 w-0.5 bg-linear-to-b from-indigo-800 via-purple-500 to-rose-500 -translate-x-1/2 z-10"
             />
 
             <motion.div
@@ -110,63 +130,47 @@ export default function TimeLine() {
             />
 
             <div className="relative w-full h-full">
+              {/* Debug overlay: mostra scrollYProgress em dev */}
+              <div className="fixed right-4 bottom-4 z-50 pointer-events-none">
+                <div className="bg-white/90 dark:bg-black/80 text-xs text-slate-900 dark:text-white px-2 py-1 rounded shadow">
+                  scrollYProgress: {progressValue}
+                </div>
+              </div>
               {timelineEvents.map((event, index) => {
                 const total = timelineEvents.length;
-                const step = 1 / total;
-                const start = index * step;
-                const end = start + step;
-
-                // Janela de ativação estrita (fade rápido e espaço limpo)
-                const fadeInStart = start;
-                const fadeInEnd = start + step * 0.15;
-                const fadeOutStart = end - step * 0.15;
-                const fadeOutEnd = end;
-
-                const opacity = useTransform(
-                  scrollYProgress,
-                  [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd],
-                  [0, 1, 1, 0]
-                );
-
-                // Alterna a propriedade display para evitar sobreposição no DOM
-                const display = useTransform(
-                  scrollYProgress,
-                  (v) => (v >= fadeInStart && v <= fadeOutEnd ? "grid" : "none")
-                );
-
-                const zIndex = useTransform(
-                  scrollYProgress,
-                  (v) => (v >= fadeInStart && v <= fadeOutEnd ? 20 : 0)
-                );
-
-                const pointerEvents = useTransform(
-                  scrollYProgress,
-                  (v) => (v >= fadeInEnd && v <= fadeOutStart ? "auto" : "none")
-                );
+                const activeIndex = progressValue >= 0.92
+                  ? total - 1
+                  : Math.min(total - 2, Math.floor(progressValue * total));
+                const isActive = index === activeIndex;
+                const opacity = isActive ? 1 : 0;
+                const zIndex = 10 + index;
+                const pointerEvents = isActive ? "auto" : "none";
 
                 const leftX = useTransform(
-                  scrollYProgress,
-                  [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd],
-                  [-20, 0, 0, -20]
+                  progressMotion,
+                  [index / total, (index + 1) / total],
+                  [-20, 0]
                 );
 
                 const rightX = useTransform(
-                  scrollYProgress,
-                  [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd],
-                  [20, 0, 0, 20]
+                  progressMotion,
+                  [index / total, (index + 1) / total],
+                  [20, 0]
                 );
 
                 return (
                   <motion.div
                     key={index}
-                    style={{ opacity, display, zIndex, pointerEvents }}
-                    className="absolute inset-0 grid-cols-1 md:grid-cols-12 gap-6 items-center"
+                    style={{ opacity, zIndex, pointerEvents }}
+                    className={`absolute inset-0 grid-cols-1 md:grid-cols-12 gap-6 items-center ${
+                      isActive ? "grid" : "hidden"
+                    }`}
                   >
-                    <motion.div 
+                    <motion.div
                       style={{ x: leftX }}
                       className="md:col-span-4 md:text-right pl-12 md:pl-0 pr-0 md:pr-8 pointer-events-none"
                     >
-                      <span className="text-4xl md:text-6xl font-black font-mono tracking-tighter text-slate-900 dark:text-white block drop-shadow-sm">
+                      <span className="timeline-year text-4xl md:text-6xl font-black font-mono tracking-tighter text-pink-600 dark:text-white block drop-shadow-sm">
                         {event.year}
                       </span>
                       <p className="text-xs md:text-sm font-bold uppercase tracking-wider text-pink-600 dark:text-pink-500 mt-2">
@@ -176,11 +180,11 @@ export default function TimeLine() {
 
                     <div className="hidden md:block md:col-span-1" />
 
-                    <motion.div 
+                    <motion.div
                       style={{ x: rightX }}
                       className="md:col-span-7 pl-12 md:pl-6"
                     >
-                      <a 
+                      <a
                         href={event.link || "#"}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -191,7 +195,7 @@ export default function TimeLine() {
                             whileHover={{ y: -4, rotateX: 2, rotateY: -2 }}
                             whileTap={{ scale: 0.98 }}
                             transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                            className="rounded-2xl bg-white/90 dark:bg-[#111113]/90 border border-slate-200 dark:border-zinc-800/80 p-6 shadow-2xl backdrop-blur-xl group-hover:border-pink-500 group-hover:shadow-[0_0_25px_rgba(236,72,153,0.25)] transition-all duration-300"
+                            className="rounded-2xl bg-white dark:bg-[#111113] border border-slate-200 dark:border-zinc-800/80 p-6 shadow-2xl backdrop-blur-xl group-hover:border-pink-500 group-hover:shadow-[0_0_25px_rgba(236,72,153,0.25)] transition-all duration-300"
                           >
                             <div className="flex items-center justify-between mb-3">
                               <span className="inline-block text-[10px] font-mono uppercase tracking-widest px-2.5 py-1 rounded bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/50">
@@ -256,9 +260,7 @@ export default function TimeLine() {
                 );
               })}
             </div>
-
           </div>
-
         </div>
       </div>
     </section>

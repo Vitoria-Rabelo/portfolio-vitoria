@@ -17,9 +17,11 @@ export default function ThemeToggle() {
         if (dark && !hasDarkClass) document.documentElement.classList.add("dark");
         if (!dark && hasDarkClass) document.documentElement.classList.remove("dark");
       } else {
+        // fallback: use existing class on documentElement
         setIsDark(hasDarkClass);
       }
     } catch (e) {
+      // ignore (e.g., SSR safety)
     }
   }, []);
 
@@ -30,6 +32,7 @@ export default function ThemeToggle() {
       localStorage.setItem("theme", willBeDark ? "dark" : "light");
       setIsDark(willBeDark);
     } catch (e) {
+      // ignore
     }
   };
 

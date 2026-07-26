@@ -24,3 +24,20 @@ body {
   
   transition: background-color 0.3s ease, color 0.3s ease; 
 }
+
+/* Fallback styling for timeline year to avoid Tailwind purge issues in production */
+.timeline-year {
+  color: #db2777 !important; /* pink-600 */
+}
+
+html.dark .timeline-year {
+  color: var(--foreground) !important;
+}
+
+/* Fallback for HeroSession ordering on mobile */
+@media (max-width: 1023px) {
+  .hero-stack {
+    display: flex !important;
+    flex-direction: column-reverse !important;
+  }
+}
