@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
-import { motion, useScroll, useTransform, useMotionValue } from "framer-motion";
+import { motion, useTransform, useMotionValue } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 
 const timelineEvents = [
@@ -70,11 +70,6 @@ const timelineEvents = [
 export default function TimeLine() {
   const targetRef = useRef(null);
 
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start start", "end end"],
-  });
-
   const progressMotion = useMotionValue(0);
   const [progressValue, setProgressValue] = useState(0);
 
@@ -85,7 +80,7 @@ export default function TimeLine() {
       const rect = el.getBoundingClientRect();
       const scrollY = window.scrollY || window.pageYOffset;
       const elTop = rect.top + scrollY;
-      const total = elTop + rect.height - window.innerHeight;
+      const total = rect.height - window.innerHeight;
       let value = 0;
       if (total > 0) value = (scrollY - elTop) / total;
       value = Math.min(Math.max(value || 0, 0), 1);
@@ -98,21 +93,11 @@ export default function TimeLine() {
     window.addEventListener("scroll", computeManual, { passive: true });
     window.addEventListener("resize", computeManual);
 
-    let unsub = null;
-    if (scrollYProgress && scrollYProgress.onChange) {
-      unsub = scrollYProgress.onChange((v) => {
-        const num = Number((v || 0).toFixed(3));
-        progressMotion.set(num);
-        setProgressValue(num);
-      });
-    }
-
     return () => {
       window.removeEventListener("scroll", computeManual);
       window.removeEventListener("resize", computeManual);
-      if (unsub) unsub();
     };
-  }, [scrollYProgress, progressMotion, targetRef]);
+  }, [progressMotion, targetRef]);
 
   const scaleY = useTransform(progressMotion, [0, 1], [0, 1]);
   const ballTop = useTransform(progressMotion, [0, 1], ["0%", "100%"]);
@@ -153,12 +138,9 @@ export default function TimeLine() {
               </div>
               {timelineEvents.map((event, index) => {
                 const total = timelineEvents.length;
-                const activeIndex = Math.min(
-                  total - 1,
-                  progressValue >= 0.99
-                    ? total - 1
-                    : Math.floor(progressValue * (total - 1))
-                );
+                const activeIndex = progressValue >= 0.92
+                  ? total - 1
+                  : Math.min(total - 2, Math.floor(progressValue * total));
                 const isActive = index === activeIndex;
                 const opacity = isActive ? 1 : 0;
                 const zIndex = 10 + index;
@@ -166,13 +148,13 @@ export default function TimeLine() {
 
                 const leftX = useTransform(
                   progressMotion,
-                  [index / (total - 1), (index + 1) / (total - 1)],
+                  [index / total, (index + 1) / total],
                   [-20, 0]
                 );
 
                 const rightX = useTransform(
                   progressMotion,
-                  [index / (total - 1), (index + 1) / (total - 1)],
+                  [index / total, (index + 1) / total],
                   [20, 0]
                 );
 
