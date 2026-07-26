@@ -79,22 +79,6 @@ export default function TimeLine() {
   const [progressValue, setProgressValue] = useState(0);
 
   useEffect(() => {
-    let manualAttached = false;
-    let cleanupManual = null;
-    const fired = { value: false };
-
-    // subscribe framer-motion scroll if available
-    let unsub = null;
-    if (scrollYProgress && scrollYProgress.onChange) {
-      unsub = scrollYProgress.onChange((v) => {
-        fired.value = true;
-        const num = Number((v || 0).toFixed(3));
-        progressMotion.set(num);
-        setProgressValue(num);
-      });
-    }
-
-    // fallback: if framer-motion doesn't fire shortly after mount, attach manual scroll listener
     const computeManual = () => {
       const el = targetRef.current;
       if (!el || typeof window === "undefined") return;
@@ -105,38 +89,28 @@ export default function TimeLine() {
       let value = 0;
       if (total > 0) value = (scrollY - elTop) / total;
       value = Math.min(Math.max(value || 0, 0), 1);
-      progressMotion.set(value);
-      setProgressValue(Number(value.toFixed(3)));
+      const num = Number(value.toFixed(3));
+      progressMotion.set(num);
+      setProgressValue(num);
     };
 
-    const attachManual = () => {
-      if (manualAttached) return;
-      manualAttached = true;
-      computeManual();
-      window.addEventListener("scroll", computeManual, { passive: true });
-      window.addEventListener("resize", computeManual);
-      cleanupManual = () => {
-        window.removeEventListener("scroll", computeManual);
-        window.removeEventListener("resize", computeManual);
-      };
-    };
+    computeManual();
+    window.addEventListener("scroll", computeManual, { passive: true });
+    window.addEventListener("resize", computeManual);
 
-    const timeout = setTimeout(() => {
-      if (!fired.value) attachManual();
-    }, 400);
-
-    // also attach when user interacts (safeguard)
-    const onFirstScroll = () => {
-      if (!fired.value) attachManual();
-      window.removeEventListener("scroll", onFirstScroll);
-    };
-    window.addEventListener("scroll", onFirstScroll, { passive: true });
+    let unsub = null;
+    if (scrollYProgress && scrollYProgress.onChange) {
+      unsub = scrollYProgress.onChange((v) => {
+        const num = Number((v || 0).toFixed(3));
+        progressMotion.set(num);
+        setProgressValue(num);
+      });
+    }
 
     return () => {
-      clearTimeout(timeout);
-      window.removeEventListener("scroll", onFirstScroll);
+      window.removeEventListener("scroll", computeManual);
+      window.removeEventListener("resize", computeManual);
       if (unsub) unsub();
-      if (cleanupManual) cleanupManual();
     };
   }, [scrollYProgress, progressMotion, targetRef]);
 
