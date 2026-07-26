@@ -194,20 +194,15 @@ export default function TimeLine() {
                   [0, 1, 1, 0]
                 );
 
-                const display = useTransform(
-                  progressMotion,
-                  (v) => (v >= fadeInStart && v <= fadeOutEnd ? "grid" : "none")
-                );
+                const isVisible =
+                  progressValue >= fadeInStart && progressValue <= fadeOutEnd;
 
-                const zIndex = useTransform(
-                  progressMotion,
-                  (v) => (v >= fadeInStart && v <= fadeOutEnd ? 20 : 0)
-                );
+                const zIndex = 10 + index;
 
-                const pointerEvents = useTransform(
-                  progressMotion,
-                  (v) => (v >= fadeInEnd && v <= fadeOutStart ? "auto" : "none")
-                );
+                const pointerEvents =
+                  progressValue >= fadeInEnd && progressValue <= fadeOutStart
+                    ? "auto"
+                    : "none";
 
                 const leftX = useTransform(
                   progressMotion,
@@ -224,8 +219,10 @@ export default function TimeLine() {
                 return (
                   <motion.div
                     key={index}
-                    style={{ opacity, display, zIndex, pointerEvents }}
-                    className="absolute inset-0 grid-cols-1 md:grid-cols-12 gap-6 items-center"
+                    style={{ opacity, zIndex, pointerEvents }}
+                    className={`absolute inset-0 grid-cols-1 md:grid-cols-12 gap-6 items-center ${
+                      isVisible ? "grid" : "hidden"
+                    }`}
                   >
                     <motion.div
                       style={{ x: leftX }}
@@ -256,7 +253,7 @@ export default function TimeLine() {
                             whileHover={{ y: -4, rotateX: 2, rotateY: -2 }}
                             whileTap={{ scale: 0.98 }}
                             transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                            className="rounded-2xl bg-white/90 dark:bg-[#111113]/90 border border-slate-200 dark:border-zinc-800/80 p-6 shadow-2xl backdrop-blur-xl group-hover:border-pink-500 group-hover:shadow-[0_0_25px_rgba(236,72,153,0.25)] transition-all duration-300"
+                            className="rounded-2xl bg-white dark:bg-[#111113] border border-slate-200 dark:border-zinc-800/80 p-6 shadow-2xl backdrop-blur-xl group-hover:border-pink-500 group-hover:shadow-[0_0_25px_rgba(236,72,153,0.25)] transition-all duration-300"
                           >
                             <div className="flex items-center justify-between mb-3">
                               <span className="inline-block text-[10px] font-mono uppercase tracking-widest px-2.5 py-1 rounded bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/50">
