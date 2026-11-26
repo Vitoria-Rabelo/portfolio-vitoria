@@ -50,6 +50,15 @@ const projectsData = [
     gitUrl: "https://github.com/PriHolanda/Avante-Carreiras",
     previewUrl: "https://github.com/PriHolanda/Avante-Carreiras/blob/main/README.md",
   },
+  {
+    id: 6,
+    title: "Caça-Placa",
+    description: "Plataforma para auxílio dos agentes de trânsito no mapeamento e na visualização de dados relacionados às sinalizações de trânsito",
+    image: "/images/projects/cacaplaca.png",
+    tag: ["Todos", "Web"],
+    gitUrl: "https://github.com/SabrinaDamascenoDev/ProjetoSocialFrontend",
+    previewUrl: "https://projeto-social-frontend-v2.vercel.app/login",
+  },
 ];
 
 const ProjectsSection = () => {
@@ -71,7 +80,7 @@ const ProjectsSection = () => {
   };
 
   return (
-    <section id="projects" className="text-[var(--foreground)] scroll-mt-24">
+    <section id="projects" className="text-foreground scroll-mt-24">
       <h2 className="text-center text-4xl font-bold mt-4 mb-8 md:mb-4">
         Meus Projetos
       </h2>
